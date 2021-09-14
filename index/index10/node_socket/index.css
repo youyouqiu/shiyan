@@ -1,0 +1,43 @@
+body, div, input, p {
+  margin: 0;
+  padding: 0;
+}
+.login-wrap {
+  width: 380px;
+  margin: 38px auto;
+}
+.login-input {
+  width: 296px;
+  height: 38px;
+}
+.login-submit {
+  width: 69px;
+  height: 42px;
+}
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
+.socket-wrap {
+  width: 380px;
+  margin: 38px auto;
+}
+.socket-text {
+  padding: 12px 0;
+}
+.socket-input {
+  width: 296px;
+  height: 38px;
+}
+.socket-submit {
+  width: 69px;
+  height: 42px;
+}
+.msg-wrap {
+  width: 380px;
+  margin: 38px auto;
+}
+.msg-wrap p {
+  padding: 9px 0;
+}

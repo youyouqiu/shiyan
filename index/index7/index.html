@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      /* background-color: red; */
+      color: white;
+      width: 74px;
+    }
+    .text {
+      text-align: center;
+    }
+    .colorBox {
+      width: 100px;
+      height: 100px;
+      background-color: #fedcbd;
+      margin: 50px;
+    }
+    .colorBox2 {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0,126,255,0.6);
+      position: absolute;
+      top: 87px;
+      left: 13px;
+      width: 0;
+      height: 0;
+      background-color: rgba(0,0,0,0);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p class="text">京ADEF4L</p>
+    <div class="colorBox"></div>
+    <div class="colorBox2" onclick="dClick()" ondblclick="ddClick()"></div>
+    <input  type="color" id="onchange">
+  </div>
+</body>
+<script>
+  const box = document.getElementsByClassName("box")[0];
+  const text = document.getElementsByClassName("text")[0];
+  const textContent = text.innerHTML;
+
+  function myBrowser() {
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var isOpera = userAgent.indexOf("Opera") > -1;
+    if (isOpera) { //判断是否Opera浏览器
+        return "Opera"
+    }
+    ;
+    if (userAgent.indexOf("Firefox") > -1) { //判断是否Firefox浏览器
+        return "FF";
+    }
+    ;
+    if (userAgent.indexOf("Chrome") > -1) {
+        return "Chrome";
+    }
+    ;
+    if (userAgent.indexOf("Safari") > -1) { //判断是否Safari浏览器
+        return "Safari";
+    }
+    ;
+    if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) { //判断是否IE浏览器
+        return "IE";
+    }
+    ;
+  }
+  let myBrowserType = myBrowser();
+  console.log(myBrowserType, 'myBrowserType');
+
+  let TimeFn = null;
+  function dClick(e) {
+    console.log('dClick');
+    clearTimeout(TimeFn);
+    TimeFn = setTimeout(function() {
+      console.log('dClick11111');
+    }, 500);
+  }
+  function ddClick() {
+    console.log('ddClick');
+    clearTimeout(TimeFn);
+  }
+
+  var clickCount = 0;
+  function oneClick(event, treeId, treeNode) {
+    clickCount++;
+    setTimeout(function() { 
+      if(clickCount == 2) {
+        console.log("db click"); 
+      } else if(clickCount == 1) {
+        console.log("one click"); 
+      }
+      clickCount = 0;
+    }, 300);
+  }
+
+  function textSize(fontSize, fontFamily, text) {
+    const span = document.createElement("span");
+    const result = {};
+    result.width = span.offsetWidth;
+    result.height = span.offsetHeight;
+    span.style.visibility = "hidden";
+    span.style.fontSize = fontSize;
+    span.style.fontFamily = fontFamily;
+    span.style.display = "inline-block";
+    document.body.appendChild(span);
+    if(typeof span.textContent != "undefined") {
+      span.textContent = text;
+    } else {
+      span.innerText = text;
+    }
+    result.width = parseFloat(window.getComputedStyle(span).width) - result.width;
+    result.height = parseFloat(window.getComputedStyle(span).height) - result.height;
+    return result;
+  }
+
+  const strInfo = textSize("16px", "Arial", "京ADEF4L");
+  const strWidth = strInfo.width;
+  box.style.width = `${strWidth + 2}px`;
+
+  let a = [{id: 1}, {id: 2}, {id: 3}];
+  let b = "2,3";
+  let c = b.split(",");
+  let e = c.map((item2, index2) => {
+    for (let i = 0; i < a.length; i++) {
+      if (item2 == a[i].id) {
+        return a[i];
+      }
+    }
+  })
+  
+  const r2 = /^\d{1,5}$/;
+  console.log('1111a'.match(r2), '111112')
+  console.log(e, 'e');
+
+  // let num1 = Math.ceil(Math.random()*10);
+  // let num2 = Math.ceil(Math.random()*10);
+  // let num3 = 0;
+  // let num4 = num1 + num2;
+  // for(let i = 1; i < 2;) {
+  //   if(num4 > 9) {
+  //     num2 = Math.ceil(Math.random()*10);
+  //     num4 = num1 + num2;
+  //   } else {
+  //     num3 = 10 - num4;
+  //     i++;
+  //   }
+  // }
+  // console.log(num1 / 10, num2 / 10, num3 / 10);
+
+
+  const arr222 = ['20201399', '20201367', '20201311', '20201289', '20201266', '20201248', '20201244']; 0-6, 7
+  const num222 = arr222.reduce((total, currentValue, currentIndex, arr) => {
+    console.log((Number(currentValue) - (currentIndex + 1 < arr.length ? Number(arr[currentIndex + 1]) : Number(currentValue))), '111111')
+    return total + (Number(currentValue) - (currentIndex + 1 < arr.length ? Number(arr[currentIndex + 1]) : Number(currentValue)));
+  }, 0);
+  console.log(num222, 'num222');
+
+  const arr333 = [
+    {a: 30},
+    {a: 29},
+    {a: 26},
+    {a: 21},
+    {a: 20},
+    {a: 9},
+    {a: 8},
+    {a: 7},
+    {a: 3},
+    {a: 2},
+    {a: 1},
+  ];
+  const arr444 = arr333.concat([]);
+  let arr555 = [];
+  arr555 = arr444.map((item, index) => {
+    const num = item.a - arr444[index + 1].a;
+    if (num > 2) {
+      const num2 = Math.floor(num / 2);
+      for (let i = 1; i <= num2; i++) {
+        const obj = {
+          a: item.a - (2 * i),
+        }
+        arr444.splice(index + i, 0, obj);
+      }
+    }
+    return item;
+  });
+  console.log(arr555, 'arr555');
+  console.log(arr444, 'arr444');
+
+  let bte = '#arr1234567》》》#arr7654321';
+  let ate = bte.indexOf('#arr765');
+  console.log(ate, 'ate');
+
+  async function abc () {
+    await (() => {console.log(1111)})();
+    console.log(22222);
+  }
+
+  abc();
+  console.log(333333);
+
+  function bcd () {
+    console.log(444444);
+  }
+
+  bcd();
+  console.log(555555);
+
+
+  let a01 = [{a: 1}, {a: 2}, {a: 3}];
+  let a02 = [].concat(a01, {a: 4});
+  a02.map((item, index) => {
+    if (item) {
+      return item.a = true;
+    }
+  });
+  console.log(a02, 'a02');
+  console.log(a01, 'a01');
+
+  const aaaaaaa = [{latitude: "40.703511", longitude: "109.785714", speed: "1620837256", time: 1620837256}, {latitude: "40.703511", longitude: "109.785714", speed: "0", time: 1620837286}, {latitude: "40.703511", longitude: "109.785714", speed: "1620837316", time: 1620837316}, {latitude: "40.703511", longitude: "109.785714", speed: "0", time: 1620837346}, {latitude: "40.703511", longitude: "109.785714", speed: "1620837376", time: 1620837376}, {latitude: "40.703511", longitude: "109.785714", speed: "0", time: 1620837406}, {latitude: "40.703511", longitude: "109.785714", speed: "1620837436", time: 1620837436}];
+  const newaaaaaaa = aaaaaaa.filter(item => item.speed > 0);
+  console.log(newaaaaaaa, 'newaaaaaaa')
+
+  let llData = [
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '2.1', latitude: '2.2', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '7.1', latitude: '7.2', longitude: '0.0'},
+    {longtitude: '8.1', latitude: '8.2', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '12.1', latitude: '12.2', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+    {longtitude: '0.0', latitude: '0.0', longitude: '0.0'},
+  ];
+  console.log(llData, 'llData');
+  let llData22 = JSON.parse(JSON.stringify(llData));
+  let llYou = {longtitude: '0.0', latitude: '0.0', longitude: '0.0'};
+  llData.map((item, index) => {
+    if (item.longtitude !== '0.0' || item.latitude !== '0.0') {
+      llYou.longtitude = item.longtitude;
+      llYou.latitude = item.latitude;
+      llYou.longitude = item.longitude;
+      for (let i = 0; i < llData22.length; i++) {
+        if (llData22[i].longtitude === '0.0' && llData22[i].latitude === '0.0') {
+          llData22[i].longtitude = llYou.longtitude;
+          llData22[i].latitude = llYou.latitude;
+          llData22[i].longitude = llYou.longitude;
+        } else {
+          llYou.longtitude = llData22[i].longtitude;
+          llYou.latitude = llData22[i].latitude;
+          llYou.longitude = llData22[i].longitude;
+        };
+      }
+    }
+  });
+  console.log(llData22, 'llData22');
+
+  let aaArr = [
+    {name: '1', id: '001'},
+    {name: '2', id: '002'},
+    {name: '3', id: '003'},
+    {name: '4', id: '004'},
+  ]
+  let bbArr = [
+    {name: '11', id: '011', faName: [{name: '1', id: '001'}]},
+    {name: '22', id: '022', faName: [{name: '2', id: '002'}]},
+    {name: '33', id: '033', faName: [{name: '3', id: '003'}, {name: '4', id: '004'}]},
+  ]
+  let ccArr = [];
+  let newaaArr = aaArr.filter(item => item.id === '001');
+  for (let i = 0; i < bbArr.length; i++) {
+    let ddArr = bbArr[i].faName.filter(item => item.id === '001');
+    if (ddArr.length > 0) {
+      ccArr.push(...ddArr);
+    }
+  }
+  let newbbArr = bbArr.map(faItem => faItem.faName.filter(item => item.id === '001'));
+  console.log(newaaArr, 'newaaArr');
+  console.log(newbbArr, 'newbbArr');
+  console.log(ccArr, 'ccArr');
+
+</script>
+</html>

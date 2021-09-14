@@ -1,0 +1,66 @@
+<!DOCTYPE html> <!-- 文档类型：标准html文档 -->
+<html lang='en'> <!-- html根标签 翻译文字：英文 -->
+  <head> <!-- 网页头部 -->
+    <meta charset='UTF-8' /> <!-- 网页字符编码 -->
+    <meta name='Keywords' content='关键词1,关键词2' />
+    <meta name='Description' content='网站说明' />
+    <meta name='Author' content='作者' />
+    <title>前端</title> <!-- 网页标题 -->
+    <link rel='stylesheet' type='text/css' href='./index.css' /> <!-- 外链样式表 -->
+    <style type='text/css'> /*内部样式表*/
+    </style>
+  </head>
+  <body onload="getWebSocket()">
+    <div class="login-wrap">
+      <input class="login-input" id="login-input" placeholder="请输入...." />
+      <input class="login-submit" type="submit" value="注册用户" onclick="login()" />
+    </div>
+    <div class="line"></div>
+    <div class="socket-wrap" id="socket-wrap">
+      <p id="socket-text" class="socket-text">未登录的某某：</p>
+      <input class="socket-input" id="socket-input" placeholder="请输入...." />
+      <input class="socket-submit" type="submit" value="发送" onclick="sendWebSocket()" />
+    </div>
+    <div class="line"></div>
+    <div class="msg-wrap" id="msg-wrap"></div>
+    <script>
+      let ws = null;
+      let userName = '未登录的某某';
+      function getWebSocket() {
+        ws = new WebSocket('ws://127.0.0.1:8080');
+        ws.onopen = () => {
+          console.log('ws open');
+        }
+        ws.onmessage = (e) => {
+          console.log(e, 'e');
+          const box = document.getElementById('msg-wrap');
+          const msgText = document.createElement('p');
+          msgText.textContent = e.data;
+          box.appendChild(msgText);
+        }
+        ws.onclose = () => {
+          console.log('ws close');
+        }
+        ws.onerror = () => {
+          console.log('ws error');
+        }
+      }
+
+      function login() {
+        const loginInput = document.getElementById('login-input');
+        const text = document.getElementById('socket-text');
+        userName = loginInput.value;
+        text.innerText = `${userName}：`;
+        loginInput.value = '';
+      }
+
+      function sendWebSocket() {
+        let socketInput = document.getElementById('socket-input');
+        const date = new Date();
+        const time = `${date.getHours()}：${date.getMinutes()}：${date.getSeconds()}`;
+        ws.send(`[ ${time} ][ ${userName} ]：${socketInput.value}`);
+        socketInput.value = '';
+      }
+    </script>
+  </body>
+</html>
